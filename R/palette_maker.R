@@ -1,4 +1,14 @@
-
+#' @importFrom stats kmeans
+#' @importFrom jpeg readJPEG
+#' @importFrom scales show_col
+#' @title make a palette from your image
+#' @description processes a custom jpeg image producing a palett with a user-defined number of colours
+#' @param image_path relative path to the custom image, including .jpeg extension
+#' @param number_of_colors number of different colors desired for the resulting palette
+#' @author Andrea Cirillo
+#' @examples
+#' palette_maker("data/nascita_venere.jpg",number_of_colors = 20)
+#' @export
 palette_maker <- function(image_path = NA, number_of_colors = 20){
   if (is.na(image_path)){stop("you must provide a jpg image to build your palette from")}
   painting     <- readJPEG(image_path)
