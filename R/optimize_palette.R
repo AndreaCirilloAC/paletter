@@ -1,4 +1,5 @@
-optimize_palette <- function(rgb_raw_palette = NA, number_of_colors =NA ,type_of_variable ="categorical",effective_n_of_color=NA){
+optimize_palette <- function(rgb_raw_palette = NA, number_of_colors =NA ,type_of_variable ="categorical",effective_n_of_color=NA,filter_on_low_brightness=NA,
+                             filter_on_high_brightness=NA){
 
 #some check on the length of colour vector
 
@@ -26,6 +27,28 @@ rgb_raw_palette %>%
   left_join(rgb_text_vector) %>%
   arrange(h,s,v) -> sorted_raw_palette
 
+# if no override was requested for the default filter on low brightness we remove the
+# lower tale of brightness distribution
+brightness_stats <- boxplot.stats(sorted_raw_palette$v)
+if (filter_on_low_brightness == TRUE){
+
+  first_quartile_v <- round(brightness_stats$stats[2],4)
+
+  sorted_raw_palette %>%
+    filter(v > first_quartile_v) -> sorted_raw_palette
+  effective_n_of_color <- nrow(sorted_raw_palette)# this number can never be lower than number_of colours
+
+}
+
+if (filter_on_high_brightness == TRUE){
+
+  outlier_threshold_v <- brightness_stats$stats[5]
+
+  sorted_raw_palette %>%
+    filter(v < outlier_threshold_v) -> sorted_raw_palette
+  effective_n_of_color <- nrow(sorted_raw_palette)# this number can never be lower than number_of colours
+
+}
 
 #conditional statement <- if categorical I sample distant colours, else I create a vector of n_of_colours
 ## around the mode of the distribution
@@ -47,7 +70,7 @@ if(type_of_variable == "categorical"){
     mode_hue <- root_hues_table[1,1]
 
     descriptive_v <- summary(round(sorted_raw_palette$v,4))
-    third_quartile_v <- descriptive_v[3]
+    third_quartile_v <- descriptive_v[5]
 
     sorted_raw_palette %>%
       mutate(mode_hue = as.numeric(rep(mode_hue,nrow(.))),

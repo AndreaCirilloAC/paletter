@@ -9,7 +9,7 @@
 #' @examples
 #' create_palette("data/nascita_venere.jpg",number_of_colors = 20)
 #' @export
-create_palette <- function(image_path = NA, number_of_colors = 40, type_of_variable = NA){
+create_palette <- function(image_path = NA, number_of_colors = 40, type_of_variable = NA,filter_on_low_brightness= TRUE,filter_on_high_brightness=TRUE){
 
   if (is.na(image_path)){stop("you must provide a jpg image to create your palette from")}
   painting     <- readJPEG(image_path)
@@ -25,7 +25,12 @@ create_palette <- function(image_path = NA, number_of_colors = 40, type_of_varia
   k_means        <- kmeans(painting_rgb[,c("R","G","B")], centers = effective_n_of_color, iter.max = 30)
   rgb_raw_palette <- k_means$centers
   # call to optimize palette
-  final_palette <- optimize_palette(rgb_raw_palette,number_of_colors,type_of_variable = type_of_variable,effective_n_of_color)
+  final_palette <- optimize_palette(rgb_raw_palette,
+                                    number_of_colors,
+                                    type_of_variable = type_of_variable,
+                                    effective_n_of_color,
+                                    filter_on_low_brightness = filter_on_low_brightness,
+                                    filter_on_high_brightness = filter_on_high_brightness)
   show_col(final_palette)
   return(final_palette)
 }
