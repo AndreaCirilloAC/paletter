@@ -1,4 +1,24 @@
-optimize_palette <- function(rgb_raw_palette = NA, number_of_colors =NA ,type_of_variable ="categorical",effective_n_of_color=NA,filter_on_low_brightness=NA,
+#' @title optimize raw palette from create_palette
+#' @description taken a raw palette created from a jpeg image, optimizes it given the type of variable to be plotted
+#' @param rgb_raw_palette numeric matrix of RGB from a call to rgb on hex codes
+#' @param number_of_colours integer, number of desired colours in the final palette, as specified by the user when calling create_palette
+#' @param type_of_variable string, default to 'categorical'. type of variable to be plotted with the building palette
+#' @param effective_n_of_color integere, the actual number of colors obtained from the application of kmeans on the image. equal to number_of_colours *100
+#' @param filter_on_low_brightness boolean, default to true. specifies if a filter on colours with low brigthness should be applied to enhance the palette
+#' @param filter_on_high_brightness boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette
+#' @details palette optimization consists into three different steps:
+#' - as a first step colours with a brightness (v parameter in the hsv scale) lower to the first quartile of v distribution are removed.
+#' - as a second step colours with a brightness higher than the tukey's outlier threshold for the v distribution are removed
+#' - as a last step the palette is subset according to the type of variable to be plotted: a spaced sample in case of categorical variables, an interpolation between two colours close to the mode of h for continous variables
+#' @author Andrea Cirillo
+#' @examples
+#' create_palette("data/nascita_venere.jpg",number_of_colors = 20)
+#' @export
+optimize_palette <- function(rgb_raw_palette = NA,
+                             number_of_colors =NA ,
+                             type_of_variable ="categorical",
+                             effective_n_of_color=NA,
+                             filter_on_low_brightness=NA,
                              filter_on_high_brightness=NA){
 
 #some check on the length of colour vector
