@@ -1,5 +1,3 @@
-#' @importFrom dplyr reexports
-#' @importFrom dplyr group_by
 #' @title optimize raw palette obtained from create_palette
 #' @description taken a raw palette created from a jpeg image, optimizes it given the type of variable to be plotted
 #' @param rgb_raw_palette numeric matrix of RGB from a call to rgb on hex codes

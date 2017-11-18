@@ -1,7 +1,3 @@
-#' @importFrom stats kmeans
-#' @importFrom jpeg readJPEG
-#' @importFrom scales show_col
-#' @importFrom dplyr reexports
 #' @title make a palette from your image
 #' @description processes a custom jpeg image producing a palett with a user-defined number of colours
 #' @param image_path string,default to NA. relative path to the custom image, including .jpeg extension

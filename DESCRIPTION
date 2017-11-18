@@ -3,7 +3,7 @@ Title: make a palette from your image
 Version: 0.0.0.9000
 Authors@R: person("Andrea", "Cirillo", email = "andreacirilloac@gmail.com", role = c("aut", "cre"))
 Description: processes a custom jpeg image producing a palette with a user-defined number of colours
-Depends: R (>= 3.2.3), dplyr
+Depends: R (>= 3.2.3), dplyr, scales
 Import: jpeg, scales,stats
 License: MIT
 Encoding: UTF-8
