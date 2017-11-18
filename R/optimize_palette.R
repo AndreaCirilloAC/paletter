@@ -1,4 +1,4 @@
-#' @title optimize raw palette from create_palette
+#' @title optimize raw palette obtained from create_palette
 #' @description taken a raw palette created from a jpeg image, optimizes it given the type of variable to be plotted
 #' @param rgb_raw_palette numeric matrix of RGB from a call to rgb on hex codes
 #' @param number_of_colours integer, number of desired colours in the final palette, as specified by the user when calling create_palette
@@ -6,10 +6,11 @@
 #' @param effective_n_of_color integere, the actual number of colors obtained from the application of kmeans on the image. equal to number_of_colours *100
 #' @param filter_on_low_brightness boolean, default to true. specifies if a filter on colours with low brigthness should be applied to enhance the palette
 #' @param filter_on_high_brightness boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette
-#' @details palette optimization consists into three different steps:
-#' - as a first step colours with a brightness (v parameter in the hsv scale) lower to the first quartile of v distribution are removed.
-#' - as a second step colours with a brightness higher than the tukey's outlier threshold for the v distribution are removed
-#' - as a last step the palette is subset according to the type of variable to be plotted: a spaced sample in case of categorical variables, an interpolation between two colours close to the mode of h for continous variables
+#' @details palette optimization consists into four different steps:
+#' - conversion to hsv scale in order to easily elavorate on colour order and properties.
+#' - filter on colours with a brightness lower than the first quartile of v distribution
+#' - filter on colours with a brightness higher or equal to the Tukey's outlier threshold computed on the overall v distribution
+#' - subset of the palette according to the type of variable to be plotted: a spaced sample in case of categorical variables, an interpolation between two colours close to the mode of h for continous variables
 #' @author Andrea Cirillo
 #' @examples
 #' create_palette("data/nascita_venere.jpg",number_of_colors = 20)
@@ -105,9 +106,6 @@ if(type_of_variable == "categorical"){
     # we interpolate number_of_colours color between the nearest to the mode and the subsequent
      gradient_builder <- colorRampPalette(colors = hex_codes)
      final_palette <- gradient_builder(number_of_colors)
-
-
-
 
 }else{
   stop("you must specify a valid token for type_of_variable argument")
