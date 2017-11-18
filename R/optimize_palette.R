@@ -1,3 +1,5 @@
+#' @importFrom dplyr reexports
+#' @importFrom dplyr group_by
 #' @title optimize raw palette obtained from create_palette
 #' @description taken a raw palette created from a jpeg image, optimizes it given the type of variable to be plotted
 #' @param rgb_raw_palette numeric matrix of RGB from a call to rgb on hex codes
@@ -30,13 +32,13 @@ rgb_raw_palette %>%
   rgb2hsv() %>%
   t() %>%
   data.frame() %>%
-  mutate(id = row.names(.))->hsv_raw_palette
+  mutate(id = row.names(.)) -> hsv_raw_palette
 
 #preparing vector of rgb text vector and their id
 
 rgb(rgb_raw_palette) %>%
   data.frame(stringsAsFactors = FALSE) %>%
-  mutate(id = as.character(seq(1:effective_n_of_color)))-> rgb_text_vector
+  mutate(id = as.character(seq(1:effective_n_of_color))) -> rgb_text_vector
 
 colnames(rgb_text_vector) <-  c("hex_code", "id")
 
@@ -99,10 +101,10 @@ if(type_of_variable == "categorical"){
              distance_fom_quartile = abs(v - quartile_v),
              distance_from_mode = abs(h - mode_hue)) %>%# we compute distance from the mode
       arrange(distance_from_mode, distance_fom_quartile) %>% # sorting in order to get a colour near to the mode and bright enough
-      head(n=2) %>%  # we select the shortest distance available and the immediately subsequent record (colour)
+      head(n = 2) %>%  # we select the shortest distance available and the immediately subsequent record (colour)
       select(hex_code) %>%
       pull() %>%
-      as.vector()-> hex_codes
+      as.vector() -> hex_codes
     # we interpolate number_of_colours color between the nearest to the mode and the subsequent
      gradient_builder <- colorRampPalette(colors = hex_codes)
      final_palette <- gradient_builder(number_of_colors)
