@@ -35,10 +35,39 @@ if(type_of_variable == "categorical"){
   spaced_indexes <- seq(from=1, to =effective_n_of_color,by = effective_n_of_color/number_of_colors)
   final_palette <- sorted_raw_palette$hex_code[spaced_indexes]
 
-  }else if ( tipe_of_variable == "continous"){
+  }else if ( type_of_variable == "continous"){
+
+    #we compute the mode of the raw palette and add it back as an attribute
+    sorted_raw_palette %>%
+      select(id,h) %>%
+      mutate(root_hue = round(h,2)) %>%
+      group_by(root_hue) %>%
+      count() %>%
+      arrange(desc(n)) -> root_hues_table
+    mode_hue <- root_hues_table[1,1]
+
+    descriptive_v <- summary(round(sorted_raw_palette$v,4))
+    third_quartile_v <- descriptive_v[3]
+
+    sorted_raw_palette %>%
+      mutate(mode_hue = as.numeric(rep(mode_hue,nrow(.))),
+             quartile_v = as.numeric(rep(third_quartile_v,nrow(.))),
+             distance_fom_quartile = abs(v - quartile_v),
+             distance_from_mode = abs(h - mode_hue)) %>%# we compute distance from the mode
+      arrange(distance_from_mode, distance_fom_quartile) %>% # sorting in order to get a colour near to the mode and bright enough
+      head(n=2) %>%  # we select the shortest distance available and the immediately subsequent record (colour)
+      select(hex_code) %>%
+      pull() %>%
+      as.vector()-> hex_codes
+    # we interpolate number_of_colours color between the nearest to the mode and the subsequent
+     gradient_builder <- colorRampPalette(colors = hex_codes)
+     final_palette <- gradient_builder(number_of_colors)
+
+
+
 
 }else{
   stop("you must specify a valid token for type_of_variable argument")
 }
-
+return(final_palette)
 }
