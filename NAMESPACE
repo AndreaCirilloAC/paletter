@@ -2,8 +2,3 @@
 
 export(create_palette)
 export(optimize_palette)
-importFrom(dplyr,group_by)
-importFrom(dplyr,reexports)
-importFrom(jpeg,readJPEG)
-importFrom(scales,show_col)
-importFrom(stats,kmeans)

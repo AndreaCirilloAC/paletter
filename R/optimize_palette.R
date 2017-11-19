@@ -20,7 +20,8 @@ optimize_palette <- function(rgb_raw_palette = NA,
                              type_of_variable ="categorical",
                              effective_n_of_color=NA,
                              filter_on_low_brightness=NA,
-                             filter_on_high_brightness=NA){
+                             filter_on_high_brightness=NA,
+                             filter_on_saturatrion=NA){
 
 #some check on the length of colour vector
 
@@ -57,6 +58,7 @@ sorted_raw_palette %>%
 # if no override was requested for the default filter on low brightness we remove the
 # lower tale of brightness distribution
 brightness_stats <- boxplot.stats(sorted_raw_palette$v)
+saturation_stats <- boxplot.stats(sorted_raw_palette$s)
 if (filter_on_low_brightness == TRUE){
 
   first_quartile_v <- round(brightness_stats$stats[2],4)
@@ -73,6 +75,17 @@ if (filter_on_high_brightness == TRUE){
 
   sorted_raw_palette %>%
     filter(v < outlier_threshold_v) -> sorted_raw_palette
+  effective_n_of_color <- nrow(sorted_raw_palette)# this number can never be lower than number_of colours
+
+}
+
+
+if (filter_on_saturation == TRUE){
+
+  first_quartile_s <- round(saturation_stats$stats[2],4)
+
+  sorted_raw_palette %>%
+    filter(s > first_quartile_s) -> sorted_raw_palette
   effective_n_of_color <- nrow(sorted_raw_palette)# this number can never be lower than number_of colours
 
 }

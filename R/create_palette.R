@@ -6,6 +6,7 @@
 #' @param filter_on_low_brightness boolean, default to true. specifies if a filter on colours with low brigthness should be applied to enhance the palette
 #' @param filter_on_high_brightness boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette
 #' @param optimize_palette boolean, default to true. specifies if palette optimization algorithm should be applied or not
+#' @param filter_on_saturation boolean, default to ture. specifies if a filter on low saturation should be applied.
 #' @details palette creation and optimization ist started drawing a raw palette of rgb colours from the jpeg image provided.
 #' The palette is then optimized applying the following four steps:
 #' - conversion to hsv scale in order to easily elavorate on colour order and properties.
@@ -21,7 +22,8 @@ create_palette <- function(image_path = NA,
                            type_of_variable = NA,
                            filter_on_low_brightness= TRUE,
                            filter_on_high_brightness= TRUE,
-                           optimize_palette = TRUE){
+                           optimize_palette = TRUE,
+                           filter_on_saturation = TRUE){
 
   if (is.na(image_path)){stop("you must provide a jpg image to create your palette from")}
   painting     <- readJPEG(image_path)
@@ -43,7 +45,8 @@ create_palette <- function(image_path = NA,
                                     type_of_variable = type_of_variable,
                                     effective_n_of_color,
                                     filter_on_low_brightness = filter_on_low_brightness,
-                                    filter_on_high_brightness = filter_on_high_brightness)
+                                    filter_on_high_brightness = filter_on_high_brightness,
+                                    filter_on_saturation = filter_on_saturation)
   }else{
     k_means         <- kmeans(painting_rgb[,c("R","G","B")], centers = number_of_colors, iter.max = 30)
     rgb_raw_palette <- k_means$centers

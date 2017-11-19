@@ -6,7 +6,8 @@
 \usage{
 optimize_palette(rgb_raw_palette = NA, number_of_colors = NA,
   type_of_variable = "categorical", effective_n_of_color = NA,
-  filter_on_low_brightness = NA, filter_on_high_brightness = NA)
+  filter_on_low_brightness = NA, filter_on_high_brightness = NA,
+  filter_on_saturatrion = NA)
 }
 \arguments{
 \item{rgb_raw_palette}{numeric matrix of RGB from a call to rgb on hex codes}

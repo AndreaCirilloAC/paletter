@@ -6,7 +6,8 @@
 \usage{
 create_palette(image_path = NA, number_of_colors = 40,
   type_of_variable = NA, filter_on_low_brightness = TRUE,
-  filter_on_high_brightness = TRUE)
+  filter_on_high_brightness = TRUE, optimize_palette = TRUE,
+  filter_on_saturation = TRUE)
 }
 \arguments{
 \item{image_path}{string,default to NA. relative path to the custom image, including .jpeg extension}
@@ -16,6 +17,10 @@ create_palette(image_path = NA, number_of_colors = 40,
 \item{filter_on_low_brightness}{boolean, default to true. specifies if a filter on colours with low brigthness should be applied to enhance the palette}
 
 \item{filter_on_high_brightness}{boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette}
+
+\item{optimize_palette}{boolean, default to true. specifies if palette optimization algorithm should be applied or not}
+
+\item{filter_on_saturation}{boolean, default to ture. specifies if a filter on low saturation should be applied.}
 
 \item{number_of_colours}{integer, default to 40. number of desired colours in the final palette, as specified by the user when calling create_palette}
 }
