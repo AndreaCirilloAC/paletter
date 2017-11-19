@@ -6,6 +6,7 @@
 #' @param effective_n_of_color integere, the actual number of colors obtained from the application of kmeans on the image. equal to number_of_colours *100
 #' @param filter_on_low_brightness boolean, default to true. specifies if a filter on colours with low brigthness should be applied to enhance the palette
 #' @param filter_on_high_brightness boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette
+#' @param filter_on_saturation boolean, default to ture. specifies if a filter on low saturation should be applied.
 #' @details palette optimization consists into four different steps:
 #' - conversion to hsv scale in order to easily elavorate on colour order and properties.
 #' - filter on colours with a brightness lower than the first quartile of v distribution
@@ -21,7 +22,7 @@ optimize_palette <- function(rgb_raw_palette = NA,
                              effective_n_of_color=NA,
                              filter_on_low_brightness=NA,
                              filter_on_high_brightness=NA,
-                             filter_on_saturatrion=NA){
+                             filter_on_saturation = =NA){
 
 #some check on the length of colour vector
 

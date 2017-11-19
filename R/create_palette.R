@@ -26,6 +26,7 @@ create_palette <- function(image_path = NA,
                            filter_on_saturation = TRUE){
 
   if (is.na(image_path)){stop("you must provide a jpg image to create your palette from")}
+  message("decomposing image into RGB")
   painting     <- readJPEG(image_path)
   dimension    <- dim(painting)
   effective_n_of_color <- number_of_colors*100 #we increase granularity to subsequently optimize the palette
@@ -37,9 +38,11 @@ create_palette <- function(image_path = NA,
     B = as.vector(painting[,,3])
   )
   if (optimize_palette == TRUE){
+  message("applying kmeans to the image...")
   k_means        <- kmeans(painting_rgb[,c("R","G","B")], centers = effective_n_of_color, iter.max = 30)
   rgb_raw_palette <- k_means$centers
   # call to optimize palette
+  message("optimising palette...")
   final_palette <- optimize_palette(rgb_raw_palette,
                                     number_of_colors,
                                     type_of_variable = type_of_variable,
