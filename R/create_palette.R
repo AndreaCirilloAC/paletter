@@ -26,7 +26,8 @@ create_palette <- function(image_path = NA,
                            filter_on_saturation = TRUE){
 
   if (is.na(image_path)){stop("you must provide a jpg image to create your palette from")}
-  message("decomposing image into RGB")
+  if (is.na(type_of_variable)){stop("you must specify a valid type_of_variable argument to create the palette")}
+  message("decomposing image into RGB...")
   painting     <- readJPEG(image_path)
   dimension    <- dim(painting)
   effective_n_of_color <- number_of_colors*100 #we increase granularity to subsequently optimize the palette
