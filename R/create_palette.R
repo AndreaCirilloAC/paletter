@@ -15,7 +15,7 @@
 #' - subset of the palette according to the type of variable to be plotted: a spaced sample in case of categorical variables, an interpolation between two colours close to the mode of h for continous variables
 #' @author Andrea Cirillo
 #' @examples
-#' create_palette("data/nascita_venere.jpg",number_of_colors = 20)
+#' create_palette("inst/data/nascita_venere.jpg",number_of_colors = 20)
 #' @export
 create_palette <- function(image_path = NA,
                            number_of_colors = 40,
