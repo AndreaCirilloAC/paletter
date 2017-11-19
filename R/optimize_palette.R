@@ -48,6 +48,12 @@ rgb_raw_palette %>%
   left_join(rgb_text_vector) %>%
   arrange(h,s,v) -> sorted_raw_palette
 
+#remove black and white
+
+sorted_raw_palette %>%
+  filter( v != 0) %>%
+  filter(s != 0)-> sorted_raw_palette
+
 # if no override was requested for the default filter on low brightness we remove the
 # lower tale of brightness distribution
 brightness_stats <- boxplot.stats(sorted_raw_palette$v)
@@ -78,6 +84,7 @@ if(type_of_variable == "categorical"){
 
   spaced_indexes <- seq(from=1, to =effective_n_of_color,by = effective_n_of_color/number_of_colors)
   final_palette <- sorted_raw_palette$hex_code[spaced_indexes]
+  show_col(final_palette)
 
   }else if ( type_of_variable == "continous"){
 
