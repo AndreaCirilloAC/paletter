@@ -22,7 +22,7 @@ optimize_palette <- function(rgb_raw_palette = NA,
                              effective_n_of_color=NA,
                              filter_on_low_brightness=NA,
                              filter_on_high_brightness=NA,
-                             filter_on_saturation = =NA){
+                             filter_on_saturation = NA){
 
 #some check on the length of colour vector
 
