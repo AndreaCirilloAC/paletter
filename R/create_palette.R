@@ -5,6 +5,7 @@
 #' @param type_of_variable string, default to 'categorical'. type of variable to be plotted with the building palette
 #' @param filter_on_low_brightness boolean, default to true. specifies if a filter on colours with low brigthness should be applied to enhance the palette
 #' @param filter_on_high_brightness boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette
+#' @param optimize_palette boolean, default to true. specifies if palette optimization algorithm should be applied or not
 #' @details palette creation and optimization ist started drawing a raw palette of rgb colours from the jpeg image provided.
 #' The palette is then optimized applying the following four steps:
 #' - conversion to hsv scale in order to easily elavorate on colour order and properties.
@@ -19,7 +20,8 @@ create_palette <- function(image_path = NA,
                            number_of_colors = 40,
                            type_of_variable = NA,
                            filter_on_low_brightness= TRUE,
-                           filter_on_high_brightness= TRUE){
+                           filter_on_high_brightness= TRUE,
+                           optimize_palette = TRUE){
 
   if (is.na(image_path)){stop("you must provide a jpg image to create your palette from")}
   painting     <- readJPEG(image_path)
@@ -32,6 +34,7 @@ create_palette <- function(image_path = NA,
     G = as.vector(painting[,,2]),
     B = as.vector(painting[,,3])
   )
+  if (optimize_palette == TRUE){
   k_means        <- kmeans(painting_rgb[,c("R","G","B")], centers = effective_n_of_color, iter.max = 30)
   rgb_raw_palette <- k_means$centers
   # call to optimize palette
@@ -41,6 +44,11 @@ create_palette <- function(image_path = NA,
                                     effective_n_of_color,
                                     filter_on_low_brightness = filter_on_low_brightness,
                                     filter_on_high_brightness = filter_on_high_brightness)
+  }else{
+    k_means         <- kmeans(painting_rgb[,c("R","G","B")], centers = number_of_colors, iter.max = 30)
+    rgb_raw_palette <- k_means$centers
+    final_palette   <- rgb(k_means$centers)
+  }
   show_col(final_palette)
   return(final_palette)
 }
