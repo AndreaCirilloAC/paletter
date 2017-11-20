@@ -96,8 +96,31 @@ if (filter_on_saturation == TRUE){
 
 if(type_of_variable == "categorical"){
 
-  spaced_indexes <- seq(from=1, to =effective_n_of_color,by = effective_n_of_color/number_of_colors)
-  final_palette <- sorted_raw_palette$hex_code[spaced_indexes]
+ # spaced_indexes <- seq(from=1, to =effective_n_of_color,by = effective_n_of_color/number_of_colors)
+ result <- data.frame()
+  for (i in 1:1000){
+    spaced_indexes_rand <- sort(sample(seq(from=1, to =effective_n_of_color,by = 1),size = number_of_colors))
+    sorted_raw_palette[spaced_indexes_rand,] %>%
+      select(h) -> h_temp
+    vector <- paste(spaced_indexes_rand,collapse = ",")
+    delta <- median(diff(h_temp$h))
+    evaluate <- cbind(vector = vector,delta = delta)
+    rm(h_temp)
+    result <- rbind(result,evaluate)
+
+  }
+ result %>%
+   arrange(desc(delta)) %>%
+   select(vector) %>%
+    head(1) %>%
+   unlist() %>%
+   as.character() %>%
+   strsplit(split = ",") %>%
+   as.vector() %>%
+   unlist() %>%
+   as.numeric()-> selected_indexes
+
+   final_palette <- sorted_raw_palette$hex_code[selected_indexes]
   show_col(final_palette)
 
   }else if ( type_of_variable == "continous"){

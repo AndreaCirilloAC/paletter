@@ -52,6 +52,7 @@ create_palette <- function(image_path = NA,
                                     filter_on_high_brightness = filter_on_high_brightness,
                                     filter_on_saturation = filter_on_saturation)
   }else{
+    message("applying kmeans to the image...")
     k_means         <- kmeans(painting_rgb[,c("R","G","B")], centers = number_of_colors, iter.max = 30)
     rgb_raw_palette <- k_means$centers
     final_palette   <- rgb(k_means$centers)

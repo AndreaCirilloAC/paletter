@@ -7,7 +7,7 @@
 optimize_palette(rgb_raw_palette = NA, number_of_colors = NA,
   type_of_variable = "categorical", effective_n_of_color = NA,
   filter_on_low_brightness = NA, filter_on_high_brightness = NA,
-  filter_on_saturatrion = NA)
+  filter_on_saturation = NA)
 }
 \arguments{
 \item{rgb_raw_palette}{numeric matrix of RGB from a call to rgb on hex codes}
@@ -19,6 +19,8 @@ optimize_palette(rgb_raw_palette = NA, number_of_colors = NA,
 \item{filter_on_low_brightness}{boolean, default to true. specifies if a filter on colours with low brigthness should be applied to enhance the palette}
 
 \item{filter_on_high_brightness}{boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette}
+
+\item{filter_on_saturation}{boolean, default to ture. specifies if a filter on low saturation should be applied.}
 
 \item{number_of_colours}{integer, number of desired colours in the final palette, as specified by the user when calling create_palette}
 }
