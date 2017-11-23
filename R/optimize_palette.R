@@ -97,9 +97,11 @@ if (filter_on_saturation == TRUE){
 if(type_of_variable == "categorical"){
 
  # spaced_indexes <- seq(from=1, to =effective_n_of_color,by = effective_n_of_color/number_of_colors)
- result <- data.frame()
-  for (i in 1:1000){
-    spaced_indexes_rand <- sort(sample(seq(from=1, to =effective_n_of_color,by = 1),size = number_of_colors))
+ message("optimising level of divergence between colours")
+  result <- data.frame()
+ indexes_vector <-  seq(from=1, to =effective_n_of_color,by = 1)
+  for (i in 1:5000){
+    spaced_indexes_rand <- sort(sample(indexes_vector,size = number_of_colors))
     sorted_raw_palette[spaced_indexes_rand,] %>%
       select(h) -> h_temp
     vector <- paste(spaced_indexes_rand,collapse = ",")
