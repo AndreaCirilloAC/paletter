@@ -42,7 +42,7 @@ rgb(rgb_raw_palette) %>%
 
 colnames(rgb_text_vector) <-  c("hex_code", "id")
 
-# merging all the three palette to obtain a complete one to be sorted.
+# merging all the three palettes to obtain a complete one to be sorted.
 rgb_raw_palette %>%
   data.frame() %>%
   mutate(id = row.names(.)) %>%
