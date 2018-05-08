@@ -1,6 +1,6 @@
 # paletteR
 
-PaletteR is package able to draw an optimised palette from a custom image. The palette is obtained applyin statitical learning to the image provided and optimising the distribution of colours.
+PaletteR is an R package that is able to draw an optimised palette from a custom image. The palette is obtained by applying statitical learning to the image provided and optimising the distribution of colours.
 
 More on the math behind the package can be found at:
 
@@ -14,7 +14,7 @@ Tondo Doni, Michelangelo Buonarroti, 1503-1504
 
 ## Installation
 
-The package is currently only on Github. You van install it as follows:
+The package is currently only on Github. You can install it as follows:
 
 ```
 devtools::install_github("AndreaCirilloAC/paletter")
