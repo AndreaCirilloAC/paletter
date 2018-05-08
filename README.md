@@ -17,7 +17,7 @@ Tondo Doni, Michelangelo Buonarroti, 1503-1504
 The package is currently only on Github. You van install it as follows:
 
 ```
-devtools::install_github("tidyverse/ggplot2")
+devtools::install_github("AndreaCirilloAC/paletter")
 ```
 
 ## usage
