@@ -4,7 +4,7 @@ PaletteR is an R package that is able to draw an optimised palette from a custom
 
 More on the math behind the package can be found at:
 
-http://www.milanor.net/blog/build-color-palette-from-image-with-paletter/
+https://datascienceplus.com/how-to-use-paletter-to-automagically-build-palettes-from-pictures/
 
 ## example
 
