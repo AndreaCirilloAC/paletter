@@ -12,7 +12,7 @@
 #' - conversion to hsv scale in order to easily elavorate on colour order and properties.
 #' - filter on colours with a brightness lower than the first quartile of v distribution
 #' - filter on colours with a brightness higher or equal to the Tukey's outlier threshold computed on the overall v distribution
-#' - subset of the palette according to the type of variable to be plotted: a spaced sample in case of categorical variables, an interpolation between two colours close to the mode of h for continous variables
+#' - subset of the palette according to the type of variable to be plotted: a spaced sample in case of categorical variables, an interpolation between two colours close to the mode of h for continuous variables
 #' @author Andrea Cirillo
 #' @examples
 #' create_palette("data/nascita_venere.jpg",number_of_colors = 20)
