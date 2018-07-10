@@ -16,12 +16,12 @@ Tondo Doni, Michelangelo Buonarroti, 1503-1504
 
 The package is currently only on Github. You can install it as follows:
 
-```
+```r
 devtools::install_github("AndreaCirilloAC/paletter")
 ```
 
 ## usage
-```
+```r
 image_path <- "path_to_your_image"
 colours_vector <- create_palette(image_path = image_path,
 number_of_colors =32,
