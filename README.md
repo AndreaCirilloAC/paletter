@@ -6,6 +6,8 @@ More on the math behind the package can be found at:
 
 http://www.andreacirillo.com/2018/05/08/how-to-use-paletter-to-automagically-build-palettes-from-pictures/
 
+[![Rdoc](http://www.rdocumentation.org/badges/version/paletter)](http://www.rdocumentation.org/packages/paletter)
+
 ## example
 
 Tondo Doni, Michelangelo Buonarroti, 1503-1504
