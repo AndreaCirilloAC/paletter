@@ -1,3 +1,5 @@
+<img src="man/figures/200z232paletter_logo.png" height="200" />
+
 # paletteR
 
 PaletteR is package able to draw an optimised palette from a custom image. The palette is obtained applyin statitical learning to the image provided and optimising the distribution of colours.
