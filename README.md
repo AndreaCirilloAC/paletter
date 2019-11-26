@@ -1,3 +1,5 @@
+<img src="man/figures/paletter_logo.png" height="200" />
+
 # paletteR
 
 PaletteR is an R package that is able to draw an optimised palette from a custom image. The palette is obtained by applying statistical learning to the image provided and optimising the distribution of colours.
