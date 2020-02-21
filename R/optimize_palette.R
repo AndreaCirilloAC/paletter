@@ -7,6 +7,9 @@
 #' @param filter_on_low_brightness boolean, default to true. specifies if a filter on colours with low brigthness should be applied to enhance the palette
 #' @param filter_on_high_brightness boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette
 #' @param filter_on_saturation boolean, default to ture. specifies if a filter on low saturation should be applied.
+#' @importFrom grDevices rgb2hsv rgb boxplot.stats colorRampPalette
+#' @importFrom dplyr mutate left_join arrange select group_by count n desc pull filter
+#' @importFrom magrittr %>%
 #' @details palette optimization consists into four different steps:
 #' - conversion to hsv scale in order to easily elavorate on colour order and properties.
 #' - filter on colours with a brightness lower than the first quartile of v distribution

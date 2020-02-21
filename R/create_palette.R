@@ -7,6 +7,10 @@
 #' @param filter_on_high_brightness boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette
 #' @param optimize_palette boolean, default to true. specifies if palette optimization algorithm should be applied or not
 #' @param filter_on_saturation boolean, default to ture. specifies if a filter on low saturation should be applied.
+#' @importFrom stats kmeans median
+#' @importFrom scales show_col
+#' @importFrom jpeg readJPEG
+#' @importFrom utils head
 #' @details palette creation and optimization ist started drawing a raw palette of rgb colours from the jpeg image provided.
 #' The palette is then optimized applying the following four steps:
 #' - conversion to hsv scale in order to easily elavorate on colour order and properties.
