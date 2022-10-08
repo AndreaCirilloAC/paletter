@@ -4,10 +4,15 @@
 \alias{optimize_palette}
 \title{optimize raw palette obtained from create_palette}
 \usage{
-optimize_palette(rgb_raw_palette = NA, number_of_colors = NA,
-  type_of_variable = "categorical", effective_n_of_color = NA,
-  filter_on_low_brightness = NA, filter_on_high_brightness = NA,
-  filter_on_saturation = NA)
+optimize_palette(
+  rgb_raw_palette = NA,
+  number_of_colors = NA,
+  type_of_variable = "categorical",
+  effective_n_of_color = NA,
+  filter_on_low_brightness = NA,
+  filter_on_high_brightness = NA,
+  filter_on_saturation = NA
+)
 }
 \arguments{
 \item{rgb_raw_palette}{numeric matrix of RGB from a call to rgb on hex codes}
@@ -32,7 +37,7 @@ palette optimization consists into four different steps:
 - conversion to hsv scale in order to easily elavorate on colour order and properties.
 - filter on colours with a brightness lower than the first quartile of v distribution
 - filter on colours with a brightness higher or equal to the Tukey's outlier threshold computed on the overall v distribution
-- subset of the palette according to the type of variable to be plotted: a spaced sample in case of categorical variables, an interpolation between two colours close to the mode of h for continous variables
+- subset of the palette according to the type of variable to be plotted: a spaced sample in case of categorical variables, an interpolation between two colours close to the mode of h for continuous variables
 }
 \examples{
 create_palette("data/nascita_venere.jpg",number_of_colors = 20)
