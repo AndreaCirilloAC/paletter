@@ -8,7 +8,7 @@
 #' @param filter_on_high_brightness boolean, default to true. specifies if a filter on colours with high brigthness should be applied to enhance the palette
 #' @param filter_on_saturation boolean, default to ture. specifies if a filter on low saturation should be applied.
 #' @importFrom grDevices rgb2hsv rgb boxplot.stats colorRampPalette
-#' @importFrom dplyr mutate left_join arrange select group_by count n desc pull filter
+#' @importFrom dplyr mutate left_join arrange select group_by count n desc pull filter slice
 #' @importFrom magrittr %>%
 #' @details palette optimization consists into four different steps:
 #' - conversion to hsv scale in order to easily elavorate on colour order and properties.
@@ -101,34 +101,26 @@ if(type_of_variable == "categorical"){
 
  # spaced_indexes <- seq(from=1, to =effective_n_of_color,by = effective_n_of_color/number_of_colors)
  message("optimising level of divergence between colours")
-  result <- data.frame()
- indexes_vector <-  seq(from=1, to =effective_n_of_color,by = 1)
-  for (i in 1:5000){
-    spaced_indexes_rand <- sort(sample(indexes_vector,size = number_of_colors))
-    sorted_raw_palette[spaced_indexes_rand,] %>%
-      select(h) -> h_temp
-    vector <- paste(spaced_indexes_rand,collapse = ",")
-    delta <- median(diff(h_temp$h))
-    evaluate <- cbind(vector = vector,delta = delta)
-    rm(h_temp)
-    result <- rbind(result,evaluate)
 
-  }
- result %>%
-   arrange(desc(delta)) %>%
-   select(vector) %>%
-    head(1) %>%
-   unlist() %>%
-   as.character() %>%
-   strsplit(split = ",") %>%
-   as.vector() %>%
-   unlist() %>%
-   as.numeric()-> selected_indexes
+ best <- -Inf
+ for (i in 1:5000){
+   spaced_indexes_rand <- sample(effective_n_of_color,size = number_of_colors)
+   sorted_raw_palette %>%
+     slice(spaced_indexes_rand) %>%
+     pull("h") %>%
+     sort %>%
+     diff %>%
+     median -> delta
+   if(delta > best) {
+       selected_indexes <- spaced_indexes_rand
+       best <- delta
+   }
+ }
 
-   final_palette <- sorted_raw_palette$hex_code[selected_indexes]
-  show_col(final_palette)
+ final_palette <- sorted_raw_palette$hex_code[selected_indexes]
+ show_col(final_palette)
 
-  }else if ( type_of_variable == "continuous"){
+} else if ( type_of_variable == "continuous"){
 
     #we compute the mode of the raw palette and add it back as an attribute
     sorted_raw_palette %>%
